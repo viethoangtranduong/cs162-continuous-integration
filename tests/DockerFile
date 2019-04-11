@@ -1,0 +1,13 @@
+FROM python:3-alpine
+
+COPY requirements.txt .
+RUN apk update && \
+ apk add postgresql-dev gcc python3-dev musl-dev && \
+ python3 -m pip install -r requirements.txt
+
+WORKDIR /app
+ADD . /app
+
+EXPOSE 1234
+
+CMD ["python", "test.py"]
